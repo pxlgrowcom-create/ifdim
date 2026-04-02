@@ -1,6 +1,7 @@
 "use client";
 import { useState } from "react";
 import I from "./Icons";
+import { distMin, POI_CENTER, POI_STATION } from "@/data/districts";
 
 export function Chip({ children, active, onClick, style: xs }) {
   const [h, setH] = useState(false);
