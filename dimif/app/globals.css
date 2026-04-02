@@ -1,0 +1,18 @@
+*, *::before, *::after { box-sizing: border-box; }
+body {
+  margin: 0;
+  background: #FAFAF7;
+  font-family: 'Segoe UI', system-ui, -apple-system, sans-serif;
+  color: #1A1A18;
+  font-size: 16px;
+  overflow-x: hidden;
+}
+@keyframes fadeUp { from { opacity:0; transform:translateY(20px) } to { opacity:1; transform:translateY(0) } }
+@keyframes scaleIn { from { opacity:0; transform:scaleY(.92) } to { opacity:1; transform:scaleY(1) } }
+@media (min-width: 901px) { .burger-btn { display: none !important; } .mob-dd { display: none !important; } }
+@media (max-width: 900px) { .desk-nav { display: none !important; } }
+@media (max-width: 500px) { .form-grid { grid-template-columns: 1fr !important; } }
+.poi .ring { opacity: 0; transition: opacity .15s; }
+.poi .lbl { opacity: 0; transition: opacity .15s; pointer-events: none; }
+.poi:hover .ring { opacity: 1; }
+.poi:hover .lbl { opacity: 1; }

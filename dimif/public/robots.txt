@@ -1,0 +1,8 @@
+# IFdim — Нерухомість Івано-Франківська
+# https://ifdim.com
+
+User-agent: *
+Allow: /
+
+# Sitemap
+Sitemap: https://ifdim.com/sitemap.xml
