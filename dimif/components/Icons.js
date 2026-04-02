@@ -49,6 +49,6 @@ export const I = {
   user: (s=20,c="currentColor") => svg(<><path d="M19 21v-2a4 4 0 0 0-4-4H9a4 4 0 0 0-4 4v2"/><circle cx="12" cy="7" r="4"/></>,s,c),
   msgCircle: (s=20,c="currentColor") => svg(<><path d="M7.9 20A9 9 0 1 0 4 16.1L2 22Z"/></>,s,c),
   sofa: (s=20,c="currentColor") => svg(<><path d="M20 9V6a2 2 0 0 0-2-2H6a2 2 0 0 0-2 2v3"/><path d="M2 11v5a2 2 0 0 0 2 2h16a2 2 0 0 0 2-2v-5a2 2 0 0 0-4 0v2H6v-2a2 2 0 0 0-4 0Z"/><path d="M4 18v2"/><path d="M20 18v2"/><path d="M12 4v9"/></>,s,c),
-}};
+};
 
 export default I;
