@@ -19,7 +19,7 @@ export default function EoseliaClient() {
 
   return (
     <section style={{ maxWidth: 1200, margin: "0 auto", padding: "48px 24px 60px" }}>
-      <SL iconKey="calculator" text="єОселя 2025" />
+      <SL iconKey="calculator" text="єОселя 2026" />
       <h2 style={{ fontFamily: "Georgia, serif", fontSize: "clamp(28px, 4vw, 44px)", fontWeight: 800, marginBottom: 8 }}>єОселя — калькулятор та умови програми</h2>
       <p style={{ color: "#7a7a72", fontSize: 18, marginBottom: 32 }}>Державна іпотека під 3% (ВПО, військові) та 7% (медики, педагоги). Розрахунок платежу, хто має право, список акредитованих ЖК Івано-Франківська. Банки: Ощадбанк, ПриватБанк, Укргазбанк.</p>
       <div style={{ display: "grid", gridTemplateColumns: "repeat(auto-fit, minmax(min(340px, 100%), 1fr))", gap: 28 }}>

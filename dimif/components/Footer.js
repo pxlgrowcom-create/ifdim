@@ -16,7 +16,7 @@ export default function Footer() {
       </div>
       <span style={{ fontFamily: "Georgia, serif", color: "#2D6A4F", fontSize: 18, fontWeight: 800 }}>IFdim</span>
       <span style={{ color: "#ccc" }}>·</span>
-      Нерухомість Івано-Франківська © 2025
+      Нерухомість Івано-Франківська © 2026
     </footer>
   );
 }

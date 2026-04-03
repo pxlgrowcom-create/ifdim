@@ -142,6 +142,16 @@ export function DR({ d, rank, score, expanded, onToggle }) {
   );
 }
 
+function DC({ iconKey, value, label }) {
+  return (
+    <div style={{ display: "flex", flexDirection: "column", alignItems: "center", padding: "12px 8px", borderRadius: 14, background: "rgba(255,255,255,.7)", textAlign: "center" }}>
+      <div style={{ color: "#2D6A4F", marginBottom: 6 }}>{I[iconKey] ? I[iconKey](20, "#2D6A4F") : null}</div>
+      <div style={{ fontSize: 15, fontWeight: 700, color: "#1A1A18" }}>{value}</div>
+      <div style={{ fontSize: 12, color: "#7a7a72", marginTop: 2 }}>{label}</div>
+    </div>
+  );
+}
+
 export function Dot({ cx, cy, color, shape, label, isSel, onClick, eo }) {
   const tw = Math.max(label.length * 5.5 + 10, 45);
   return (

@@ -4,7 +4,7 @@ import Nav from '@/components/Nav';
 import Footer from '@/components/Footer';
 
 export const metadata = {
-  title: "Купити квартиру Івано-Франківськ 2025 | Новобудови, ціни, райони — IFdim",
+  title: "Купити квартиру Івано-Франківськ 2026 | Новобудови, ціни, райони — IFdim",
   description: "Купити квартиру в Івано-Франківську: порівняння 10 районів, 38 новобудов від забудовників blago, Квартал, Ярковиця. Калькулятор єОселя, ціни від $650/м².",
   keywords: "купити квартиру івано-франківськ, новобудови івано-франківськ, єОселя івано-франківськ, райони івано-франківська",
   openGraph: {
@@ -17,6 +17,16 @@ export const metadata = {
   },
   robots: { index: true, follow: true, "max-snippet": -1, "max-image-preview": "large" },
   alternates: { canonical: "https://ifdim.com" },
+  icons: {
+    icon: [
+      { url: "/favicon.ico", sizes: "48x48" },
+      { url: "/favicon.svg", type: "image/svg+xml" },
+      { url: "/favicon-16x16.png", sizes: "16x16", type: "image/png" },
+      { url: "/favicon-32x32.png", sizes: "32x32", type: "image/png" },
+    ],
+    apple: [{ url: "/apple-touch-icon.png", sizes: "180x180" }],
+  },
+  manifest: "/site.webmanifest",
 };
 
 export default function RootLayout({ children }) {
