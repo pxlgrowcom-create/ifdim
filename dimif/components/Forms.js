@@ -2,10 +2,52 @@
 import { useState } from "react";
 import I from "./Icons";
 
+const EJS = {
+  serviceId: "service_gcdx41g",
+  templateId: "template_zsyaazb",
+  publicKey: "4ILc5rkP2SFuxHIwb",
+};
+
+async function sendEmail(data) {
+  try {
+    const res = await fetch("https://api.emailjs.com/api/v1.0/email/send", {
+      method: "POST",
+      headers: { "Content-Type": "application/json" },
+      body: JSON.stringify({
+        service_id: EJS.serviceId,
+        template_id: EJS.templateId,
+        user_id: EJS.publicKey,
+        template_params: data,
+      }),
+    });
+    return res.ok;
+  } catch (e) {
+    console.error("EmailJS error:", e);
+    return false;
+  }
+}
+
 export function ContactForm({ title, subtitle }) {
   const [form, setForm] = useState({ name: "", phone: "", interest: "" });
   const [sent, setSent] = useState(false);
+  const [sending, setSending] = useState(false);
+  const [error, setError] = useState(false);
   const inp = { padding: "16px 20px", borderRadius: 12, border: "1px solid rgba(255,255,255,.2)", fontSize: 16, fontFamily: "inherit", outline: "none", background: "rgba(255,255,255,.1)", color: "#fff", boxSizing: "border-box", width: "100%" };
+
+  const handleSubmit = async () => {
+    if (!form.name || !form.phone) return;
+    setSending(true);
+    setError(false);
+    const ok = await sendEmail({
+      name: form.name,
+      phone: form.phone,
+      message: form.interest || "Не вказано",
+      page: typeof window !== "undefined" ? window.location.pathname : "",
+    });
+    setSending(false);
+    if (ok) setSent(true);
+    else setError(true);
+  };
 
   if (sent) return (
     <div style={{ background: "linear-gradient(135deg, #1B4332, #2D6A4F)", borderRadius: 24, padding: "48px 32px", textAlign: "center", color: "#fff" }}>
@@ -33,16 +75,17 @@ export function ContactForm({ title, subtitle }) {
           <option style={{ color: "#333" }}>Ремонт</option>
           <option style={{ color: "#333" }}>Консультація</option>
         </select>
+        {error && <div style={{ color: "#ff9b9b", fontSize: 14, marginBottom: 12, textAlign: "center" }}>Помилка відправки. Спробуйте ще раз.</div>}
         <div style={{ textAlign: "center" }}>
-          <button onClick={() => { if (form.name && form.phone) setSent(true); }} style={{
+          <button onClick={handleSubmit} disabled={sending} style={{
             padding: "16px 40px", borderRadius: 100, border: "none",
-            background: (form.name && form.phone) ? "linear-gradient(135deg, #DDA15E, #C4903E)" : "rgba(255,255,255,.15)",
-            color: (form.name && form.phone) ? "#1B4332" : "rgba(255,255,255,.4)",
-            fontSize: 17, fontWeight: 700, cursor: (form.name && form.phone) ? "pointer" : "default",
+            background: (form.name && form.phone && !sending) ? "linear-gradient(135deg, #DDA15E, #C4903E)" : "rgba(255,255,255,.15)",
+            color: (form.name && form.phone && !sending) ? "#1B4332" : "rgba(255,255,255,.4)",
+            fontSize: 17, fontWeight: 700, cursor: (form.name && form.phone && !sending) ? "pointer" : "default",
             fontFamily: "inherit", transition: "all .3s",
-            boxShadow: (form.name && form.phone) ? "0 4px 20px rgba(221,161,94,.35)" : "none",
+            boxShadow: (form.name && form.phone && !sending) ? "0 4px 20px rgba(221,161,94,.35)" : "none",
           }}>
-            Отримати підбірку →
+            {sending ? "Відправляємо..." : "Отримати підбірку →"}
           </button>
         </div>
       </div>
@@ -53,7 +96,24 @@ export function ContactForm({ title, subtitle }) {
 export function BrigadeForm() {
   const [form, setForm] = useState({ name: "", phone: "", budget: "", comment: "" });
   const [sent, setSent] = useState(false);
+  const [sending, setSending] = useState(false);
+  const [error, setError] = useState(false);
   const inp = { padding: "16px 20px", borderRadius: 12, border: "1px solid rgba(255,255,255,.2)", fontSize: 16, fontFamily: "inherit", outline: "none", background: "rgba(255,255,255,.1)", color: "#fff", boxSizing: "border-box", width: "100%" };
+
+  const handleSubmit = async () => {
+    if (!form.name || !form.phone) return;
+    setSending(true);
+    setError(false);
+    const ok = await sendEmail({
+      name: form.name,
+      phone: form.phone,
+      message: `Ремонт. Бюджет: ${form.budget || "не вказано"}. Площа: ${form.comment || "не вказано"}`,
+      page: typeof window !== "undefined" ? window.location.pathname : "",
+    });
+    setSending(false);
+    if (ok) setSent(true);
+    else setError(true);
+  };
 
   if (sent) return (
     <div style={{ background: "linear-gradient(135deg, #1B4332, #2D6A4F)", borderRadius: 24, padding: "48px 32px", textAlign: "center", color: "#fff" }}>
@@ -77,16 +137,17 @@ export function BrigadeForm() {
           <input placeholder="Бюджет (напр. $5000)" value={form.budget} onChange={e => setForm({ ...form, budget: e.target.value })} style={inp} />
           <input placeholder="Площа квартири" value={form.comment} onChange={e => setForm({ ...form, comment: e.target.value })} style={inp} />
         </div>
+        {error && <div style={{ color: "#ff9b9b", fontSize: 14, marginBottom: 12, textAlign: "center" }}>Помилка відправки. Спробуйте ще раз.</div>}
         <div style={{ textAlign: "center", marginTop: 20 }}>
-          <button onClick={() => { if (form.name && form.phone) setSent(true); }} style={{
+          <button onClick={handleSubmit} disabled={sending} style={{
             padding: "16px 40px", borderRadius: 100, border: "none",
-            background: (form.name && form.phone) ? "linear-gradient(135deg, #DDA15E, #C4903E)" : "rgba(255,255,255,.15)",
-            color: (form.name && form.phone) ? "#1B4332" : "rgba(255,255,255,.4)",
-            fontSize: 17, fontWeight: 700, cursor: (form.name && form.phone) ? "pointer" : "default",
+            background: (form.name && form.phone && !sending) ? "linear-gradient(135deg, #DDA15E, #C4903E)" : "rgba(255,255,255,.15)",
+            color: (form.name && form.phone && !sending) ? "#1B4332" : "rgba(255,255,255,.4)",
+            fontSize: 17, fontWeight: 700, cursor: (form.name && form.phone && !sending) ? "pointer" : "default",
             fontFamily: "inherit", transition: "all .3s",
-            boxShadow: (form.name && form.phone) ? "0 4px 20px rgba(221,161,94,.35)" : "none",
+            boxShadow: (form.name && form.phone && !sending) ? "0 4px 20px rgba(221,161,94,.35)" : "none",
           }}>
-            Підібрати бригаду →
+            {sending ? "Відправляємо..." : "Підібрати бригаду →"}
           </button>
         </div>
       </div>
