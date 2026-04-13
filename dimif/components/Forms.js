@@ -8,21 +8,46 @@ const EJS = {
   publicKey: "4ILc5rkP2SFuxHIwb",
 };
 
-async function sendEmail(data) {
+const TG = {
+  botToken: "8638091495:AAHKiW6CWw6TRmyBmJ-MGN7JKS_uKzqCieE",
+  chatId: "524205070",
+};
+
+async function sendTelegram(data) {
   try {
-    const res = await fetch("https://api.emailjs.com/api/v1.0/email/send", {
+    const text = `🏠 *Нова заявка IFdim*\n\n👤 Ім'я: ${data.name}\n📞 Телефон: ${data.phone}\n💬 Повідомлення: ${data.message}\n📄 Сторінка: ${data.page}`;
+    await fetch(`https://api.telegram.org/bot${TG.botToken}/sendMessage`, {
       method: "POST",
       headers: { "Content-Type": "application/json" },
       body: JSON.stringify({
-        service_id: EJS.serviceId,
-        template_id: EJS.templateId,
-        user_id: EJS.publicKey,
-        template_params: data,
+        chat_id: TG.chatId,
+        text: text,
+        parse_mode: "Markdown",
       }),
     });
-    return res.ok;
   } catch (e) {
-    console.error("EmailJS error:", e);
+    console.error("Telegram error:", e);
+  }
+}
+
+async function sendEmail(data) {
+  try {
+    const [emailRes] = await Promise.allSettled([
+      fetch("https://api.emailjs.com/api/v1.0/email/send", {
+        method: "POST",
+        headers: { "Content-Type": "application/json" },
+        body: JSON.stringify({
+          service_id: EJS.serviceId,
+          template_id: EJS.templateId,
+          user_id: EJS.publicKey,
+          template_params: data,
+        }),
+      }),
+      sendTelegram(data),
+    ]);
+    return emailRes.status === "fulfilled" && emailRes.value.ok;
+  } catch (e) {
+    console.error("Send error:", e);
     return false;
   }
 }
