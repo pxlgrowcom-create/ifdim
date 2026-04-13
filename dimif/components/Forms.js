@@ -3,7 +3,7 @@ import { useState } from "react";
 import I from "./Icons";
 
 const EJS = {
-  serviceId: "service_gcdx41g",
+  serviceId: "service_7qdczjc",
   templateId: "template_zsyaazb",
   publicKey: "4ILc5rkP2SFuxHIwb",
 };
